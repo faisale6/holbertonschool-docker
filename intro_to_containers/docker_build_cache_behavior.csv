@@ -1,0 +1,9 @@
+build,step,instruction,cache_status,evidence
+v1,1/3,FROM alpine,EXECUTED,base layer extracted (0.1s) because the build cache was cleared
+v1,2/3,COPY message.txt /message.txt,EXECUTED,DONE 0.0s with no CACHED label
+v1,3/3,RUN apk add curl,EXECUTED,installed 9 packages (DONE 3.2s)
+v1,CMD,"CMD [""cat"", ""/message.txt""]",N/A,metadata only and not shown as a separate build step
+v2,1/3,FROM alpine,REUSED,base image already present so resolve only (DONE 0.0s) with no extraction
+v2,2/3,COPY message.txt /message.txt,CACHED,log shows CACHED because the instruction and file are unchanged
+v2,3/3,RUN apk add curl wget,EXECUTED,instruction text changed so it ran again and installed 11 packages (DONE 4.2s)
+v2,CMD,"CMD [""cat"", ""/message.txt""]",N/A,metadata only and not shown as a separate build step
